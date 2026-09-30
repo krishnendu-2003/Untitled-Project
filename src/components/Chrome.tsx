@@ -1,5 +1,14 @@
 import Link from "next/link";
-import { nav, site } from "@/content/site";
+import MobileMenu from "@/components/MobileMenu";
+import NavLinks from "@/components/NavLinks";
+import { nav, site, type Reference } from "@/content/site";
+
+export const toneBg: Record<Reference["tone"], string> = {
+  lavender: "bg-lavender",
+  sage: "bg-sage",
+  peach: "bg-peach",
+  ink: "bg-ink text-paper",
+};
 
 export function Wordmark({ className = "" }: { className?: string }) {
   return (
@@ -37,14 +46,13 @@ export function Header() {
     <header className="sticky top-0 z-40 border-b border-line/70 bg-paper/80 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
         <Wordmark />
-        <nav className="hidden items-center gap-8 text-sm text-ink-soft md:flex">
-          {nav.map((item) => (
-            <Link key={item.href} href={item.href} className="hover:text-ink">
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-        <Button href="/book">Book a call</Button>
+        <NavLinks />
+        <div className="flex items-center gap-2">
+          <span className="hidden sm:inline-flex">
+            <Button href="/book">Book a call</Button>
+          </span>
+          <MobileMenu />
+        </div>
       </div>
     </header>
   );
@@ -65,5 +73,15 @@ export function Footer() {
         <p className="text-sm text-ink-soft">© {new Date().getFullYear()} {site.name}</p>
       </div>
     </footer>
+  );
+}
+
+export function SectionHeading({ kicker, title, body }: { kicker: string; title: React.ReactNode; body?: string }) {
+  return (
+    <div className="mx-auto max-w-2xl text-center">
+      <p className="text-xs font-medium uppercase tracking-[0.2em] text-ink-soft">{kicker}</p>
+      <h2 className="mt-4 font-serif text-4xl leading-[1.05] sm:text-6xl">{title}</h2>
+      {body && <p className="mt-5 text-lg text-ink-soft">{body}</p>}
+    </div>
   );
 }
