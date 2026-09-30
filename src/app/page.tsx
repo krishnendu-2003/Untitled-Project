@@ -9,6 +9,7 @@ import {
   site,
   type Reference,
   type Service,
+  whyUs,
 } from "@/content/site";
 
 const toneBg: Record<Reference["tone"], string> = {
@@ -97,18 +98,19 @@ function Hero() {
           Now booking new projects
         </p>
         <h1 className="mx-auto mt-8 max-w-4xl font-serif text-5xl leading-[0.98] tracking-tight sm:text-7xl md:text-8xl">
-          Don&apos;t just post.
+          You own the context.
           <br />
-          <em className="text-lavender-deep">Make it worth watching.</em>
+          <em className="text-lavender-deep">We ship the video.</em>
         </h1>
         <p className="mx-auto mt-8 max-w-xl text-lg text-ink-soft">{site.tagline}</p>
         <p className="mx-auto mt-2 max-w-xl text-lg text-ink-soft">
-          Agentic video creation, in-person shoots and full production under one roof.
+          No prompting, no wasted tokens, no editing on your side. Agentic video, in-person shoots and full
+          production under one roof.
         </p>
         <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <Button href="#book">Book a free call</Button>
-          <Button href="#work" variant="light">
-            See our work
+          <Button href="#why" variant="light">
+            Why teams use us
           </Button>
         </div>
       </div>
@@ -121,6 +123,54 @@ function Hero() {
             </span>
           ))}
         </div>
+      </div>
+    </section>
+  );
+}
+
+function WhyUs() {
+  return (
+    <section id="why" className="mx-auto max-w-6xl scroll-mt-24 px-4 py-24 sm:px-6">
+      <SectionHeading
+        kicker="Why us"
+        title={
+          <>
+            Why pay us when you <em>have the context?</em>
+          </>
+        }
+        body="Your team knows the product best. Turning that knowledge into video is the part that eats tokens, hours and focus. Hand over the context file and the rest is on us."
+      />
+      <div className="mt-16 grid gap-5 md:grid-cols-2">
+        <div className="rounded-3xl border border-line bg-white/50 p-8">
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-ink-soft">Doing it yourself</p>
+          <ul className="mt-6 space-y-4">
+            {whyUs.yourself.map((item) => (
+              <li key={item} className="flex gap-3 text-ink-soft">
+                <span aria-hidden className="text-peach-deep">✕</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="rounded-3xl bg-lavender p-8">
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-ink/70">With Untitled Project</p>
+          <ul className="mt-6 space-y-4">
+            {whyUs.withUs.map((item) => (
+              <li key={item} className="flex gap-3">
+                <span aria-hidden className="text-lavender-deep">✓</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+      <div className="mt-5 grid gap-5 md:grid-cols-3">
+        {whyUs.points.map((p) => (
+          <div key={p.title} className="rounded-3xl border border-line bg-white/70 p-7">
+            <h3 className="font-serif text-3xl">{p.title}</h3>
+            <p className="mt-2 text-ink-soft">{p.body}</p>
+          </div>
+        ))}
       </div>
     </section>
   );
@@ -403,6 +453,7 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
+        <WhyUs />
         <Services />
         <Work />
         <Process />
