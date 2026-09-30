@@ -202,11 +202,11 @@ function Pricing() {
             surprise invoices.
           </p>
         </div>
-        <div className="mt-16 grid gap-5 lg:grid-cols-3">
+        <div className="mt-16 grid grid-cols-1 gap-5 lg:grid-cols-3">
           {plans.map((plan) => (
             <article
               key={plan.name}
-              className={`relative flex flex-col rounded-3xl p-8 ${
+              className={`relative flex min-w-0 flex-col rounded-3xl p-6 sm:p-8 ${
                 plan.featured ? "bg-lavender text-ink" : "border border-paper/15 bg-paper/5"
               }`}
             >
@@ -217,7 +217,7 @@ function Pricing() {
               )}
               <h3 className="font-serif text-3xl">{plan.name}</h3>
               <p className={`mt-2 text-sm ${plan.featured ? "text-ink/70" : "text-paper/60"}`}>{plan.blurb}</p>
-              <p className="mt-8 flex items-baseline gap-2">
+              <p className="mt-8 flex flex-wrap items-baseline gap-x-2 gap-y-1">
                 <span className="font-serif text-5xl">
                   {site.currency}
                   {plan.price}
