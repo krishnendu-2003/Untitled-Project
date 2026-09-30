@@ -1,0 +1,169 @@
+// All editable copy, prices and links live here.
+// Prices are placeholders: replace every `price` value with the real amount.
+
+export const site = {
+  name: "Untitled Project",
+  tagline: "A content creation agency for brands that would rather be seen than scrolled past.",
+  email: "hello@untitledproject.studio",
+  // Paste your Calendly / Cal.com scheduling link here to turn on the embedded booking widget.
+  // Example: "https://calendly.com/untitled-project/intro-call"
+  bookingUrl: "",
+  currency: "₹",
+};
+
+export const nav = [
+  { label: "Services", href: "#services" },
+  { label: "Work", href: "#work" },
+  { label: "Process", href: "#process" },
+  { label: "Pricing", href: "#pricing" },
+  { label: "FAQ", href: "#faq" },
+];
+
+export type Service = {
+  id: string;
+  kicker: string;
+  title: string;
+  body: string;
+  points: string[];
+  tone: "lavender" | "sage" | "peach";
+};
+
+export const services: Service[] = [
+  {
+    id: "agentic",
+    kicker: "01 · AI-native",
+    title: "Agentic video creation",
+    body: "AI agents script, storyboard, generate and cut short-form video at a pace no crew can match, with a human editor signing off every frame.",
+    points: [
+      "Script and hook variations generated per platform",
+      "AI avatars, voiceovers and b-roll on demand",
+      "Batch output for Reels, Shorts and ads",
+      "Human QA and brand-safety review on every cut",
+    ],
+    tone: "lavender",
+  },
+  {
+    id: "shoot",
+    kicker: "02 · On set",
+    title: "In-person video shoots",
+    body: "A lean crew at your office, store or location, capturing founders, products and teams the way they actually look and sound.",
+    points: [
+      "Pre-production, shot lists and location scouting",
+      "Director, camera, lighting and sound",
+      "Founder and talking-head interviews",
+      "Product, event and behind-the-scenes coverage",
+    ],
+    tone: "sage",
+  },
+  {
+    id: "production",
+    kicker: "03 · Post",
+    title: "Video production",
+    body: "End-to-end post-production that turns raw footage into finished pieces: edited, graded, captioned and ready to publish.",
+    points: [
+      "Editing, colour grading and sound design",
+      "Motion graphics and captions",
+      "Cut-downs for every platform and aspect ratio",
+      "Brand films, launches and explainers",
+    ],
+    tone: "peach",
+  },
+];
+
+export type Reference = {
+  category: "Agentic video" | "In-person shoot" | "Production";
+  title: string;
+  client: string;
+  // Replace with a YouTube / Vimeo / Instagram link or a path under /public.
+  href: string;
+  tone: "lavender" | "sage" | "peach" | "ink";
+};
+
+// Placeholder references. Swap in real projects, links and thumbnails.
+export const references: Reference[] = [
+  { category: "Agentic video", title: "30 ad variants in 48 hours", client: "Client name", href: "#", tone: "lavender" },
+  { category: "In-person shoot", title: "Founder story, shot on location", client: "Client name", href: "#", tone: "sage" },
+  { category: "Production", title: "Product launch film", client: "Client name", href: "#", tone: "peach" },
+  { category: "Agentic video", title: "AI avatar explainer series", client: "Client name", href: "#", tone: "ink" },
+  { category: "In-person shoot", title: "Team culture day", client: "Client name", href: "#", tone: "peach" },
+  { category: "Production", title: "Podcast to Shorts pipeline", client: "Client name", href: "#", tone: "lavender" },
+];
+
+export const process = [
+  { step: "01", title: "Book a call", body: "Tell us what you are making, who it is for and where it will live." },
+  { step: "02", title: "Plan", body: "We send a treatment, script direction and a fixed quote with your revision allowance." },
+  { step: "03", title: "Create", body: "Agents, crew or both get to work. You see a first cut, not a status update." },
+  { step: "04", title: "Revise and ship", body: "Use your revision rounds, approve, and get every export you need." },
+];
+
+export type Plan = {
+  name: string;
+  price: string; // placeholder, edit manually
+  cadence: string;
+  blurb: string;
+  revisions: string; // number of revision rounds
+  changesPerRevision: string; // changes allowed inside each round
+  features: string[];
+  featured?: boolean;
+};
+
+// Pricing is driven by revisions: each plan includes N revision rounds,
+// and each round covers up to X individual changes.
+export const plans: Plan[] = [
+  {
+    name: "Draft",
+    price: "XX,XXX",
+    cadence: "per video",
+    blurb: "One focused piece with room for a round of polish.",
+    revisions: "1",
+    changesPerRevision: "5",
+    features: ["Up to 60 second video", "One format and aspect ratio", "Captions included", "Delivery in 7 working days"],
+  },
+  {
+    name: "Studio",
+    price: "XX,XXX",
+    cadence: "per video",
+    blurb: "Our most booked plan for launches and campaigns.",
+    revisions: "3",
+    changesPerRevision: "10",
+    features: ["Up to 3 minute video", "3 platform cut-downs", "Motion graphics and grade", "Delivery in 10 working days"],
+    featured: true,
+  },
+  {
+    name: "Signature",
+    price: "X,XX,XXX",
+    cadence: "per project",
+    blurb: "Shoot plus production plus agentic variants, end to end.",
+    revisions: "5",
+    changesPerRevision: "15",
+    features: ["Half-day in-person shoot", "Hero film plus 10 short-form cuts", "AI-generated ad variants", "Dedicated producer"],
+  },
+];
+
+export const extraRevision = {
+  price: "X,XXX",
+  note: "Need more? Each additional revision round is billed separately.",
+};
+
+export const faqs = [
+  {
+    q: "What counts as a revision?",
+    a: "A revision is one round of consolidated feedback on a cut. Each round covers the number of individual changes listed in your plan, such as a text edit, a trim, a music swap or a colour tweak.",
+  },
+  {
+    q: "What counts as a change?",
+    a: "One discrete edit to the video. Rewriting the script or re-shooting after approval is scoped as new work, not a change.",
+  },
+  {
+    q: "Is agentic video fully AI?",
+    a: "No. Agents handle scripting, generation and first cuts at speed, and a human editor reviews and finishes every piece before it reaches you.",
+  },
+  {
+    q: "Where do you shoot?",
+    a: "Anywhere you need us. Travel outside the city is quoted separately.",
+  },
+  {
+    q: "How do I get started?",
+    a: "Book a call below. We will scope the project, recommend a plan and send a fixed quote.",
+  },
+];
