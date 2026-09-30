@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Button, Footer, Header, toneBg } from "@/components/Chrome";
+import { ArrowLink, Button, Chip, Footer, Header, toneBg } from "@/components/Chrome";
+import WorkCarousel from "@/components/WorkCarousel";
 import { references, site } from "@/content/site";
 
 export const metadata: Metadata = {
@@ -7,54 +8,62 @@ export const metadata: Metadata = {
   description: "Agentic videos, in-person shoots and video production by Untitled Project.",
 };
 
+// Staggered card heights, like the reference's news row.
+const heights = ["h-64", "h-52", "h-44"];
+
 export default function WorkPage() {
   return (
     <>
       <Header />
-      <main className="relative overflow-hidden">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 -top-40 mx-auto h-[420px] max-w-5xl rounded-full bg-gradient-to-r from-lavender via-peach to-sage opacity-50 blur-3xl"
-        />
-        <div className="relative mx-auto max-w-6xl px-4 pb-24 pt-14 sm:px-6 sm:pt-20">
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="text-xs font-medium uppercase tracking-[0.2em] text-ink-soft">References</p>
-            <h1 className="mt-4 font-serif text-5xl leading-[1.02] sm:text-7xl">
-              Recent <em className="text-lavender-deep">work</em>
+      <main>
+        <section className="bg-gradient-to-b from-cream to-paper pb-20 pt-14 sm:pt-20">
+          <div className="mx-auto flex max-w-3xl flex-col items-center px-4 text-center">
+            <Chip>Recent Work</Chip>
+            <h1 className="mt-4 text-balance font-display text-5xl font-extrabold leading-[1] tracking-[-0.03em] sm:text-7xl">
+              Videos That Did The Talking
             </h1>
-            <p className="mt-5 text-lg text-ink-soft">
-              A sample across agentic video, on-location shoots and production.
+            <p className="mt-5 max-w-xl text-lg text-ink-soft">
+              Agentic video, on-location shoots and full productions. Tap a card to bring it to the front.
             </p>
           </div>
-          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {references.map((r) => (
-          <a
-            key={r.title}
-            href={r.href}
-            className="group overflow-hidden rounded-3xl border border-line bg-white/70 transition-transform hover:-translate-y-1"
-          >
-            <div className={`relative flex aspect-video items-center justify-center ${toneBg[r.tone]}`}>
-              <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white/80 text-ink shadow-sm transition-transform group-hover:scale-110">
-                <svg viewBox="0 0 24 24" className="ml-0.5 h-5 w-5 fill-current" aria-hidden>
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              </span>
-              <span className="absolute left-4 top-4 rounded-full bg-white/80 px-3 py-1 text-xs font-medium text-ink">
-                {r.category}
-              </span>
-            </div>
-            <div className="p-5">
-              <h3 className="font-serif text-2xl leading-tight">{r.title}</h3>
-              <p className="mt-1 text-sm text-ink-soft">{r.client}</p>
-            </div>
-          </a>
-          ))}
-        </div>
-          <div className="mt-16 flex flex-col items-center gap-4 text-center">
-            <p className="font-serif text-3xl">Want something like this?</p>
-            <Button href="/book">Book a call</Button>
+          <div className="mt-14">
+            <WorkCarousel />
           </div>
-        </div>
+        </section>
+
+        <section className="bg-paper pb-24">
+          <div className="mx-auto max-w-7xl px-4 sm:px-8">
+            <div className="flex flex-wrap items-end justify-between gap-4 border-t border-ink/10 pt-12">
+              <h2 className="font-display text-3xl font-extrabold tracking-tight sm:text-4xl">All projects</h2>
+              <ArrowLink href="/book">Start yours</ArrowLink>
+            </div>
+            <div className="mt-10 grid gap-x-4 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 lg:items-end">
+              {references.map((r, i) => (
+                <a key={r.title} href={r.href} className="group flex min-w-0 flex-col">
+                  <div
+                    className={`relative flex w-full items-center justify-center overflow-hidden rounded-[28px] grayscale transition-all duration-500 group-hover:grayscale-0 ${
+                      heights[i % heights.length]
+                    } ${toneBg[r.tone]}`}
+                  >
+                    <span className="flex h-12 w-12 items-center justify-center rounded-full bg-white/85 text-ink shadow-sm transition-transform group-hover:scale-110">
+                      <svg viewBox="0 0 24 24" className="ml-0.5 h-4 w-4 fill-current" aria-hidden>
+                        <path d="M8 5.5v13l10.5-6.5z" />
+                      </svg>
+                    </span>
+                  </div>
+                  <p className="mt-4 text-xs text-ink-soft">
+                    {r.category} · {r.client}
+                  </p>
+                  <h3 className="mt-1 font-display text-lg font-bold leading-snug tracking-tight">{r.title}</h3>
+                </a>
+              ))}
+            </div>
+            <div className="mt-20 flex flex-col items-center gap-5 text-center">
+              <p className="font-display text-3xl font-extrabold tracking-tight">Want something like this?</p>
+              <Button href="/book">Book a call</Button>
+            </div>
+          </div>
+        </section>
       </main>
       <Footer />
     </>
