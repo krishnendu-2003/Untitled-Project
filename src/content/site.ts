@@ -5,9 +5,13 @@ export const site = {
   name: "Untitled Project",
   tagline: "Send the docs and context files your team already has. We turn them into finished videos.",
   email: "hello@untitledproject.studio",
-  // Paste your Calendly event link here to swap the built-in scheduler for your live Calendly.
-  // Example: "https://calendly.com/untitled-project/discovery-call"
-  bookingUrl: "",
+  // Cal.com booking. Paste your event's link path (the part after cal.com/) to swap the
+  // built-in scheduler for live Cal.com booking. Example: "untitled-project/discovery-call"
+  calLink: "",
+  // Only for a self-hosted Cal.com: its origin, e.g. "https://cal.yourdomain.com".
+  calOrigin: "",
+  // Only for a self-hosted Cal.com: its embed script, e.g. "https://cal.yourdomain.com/embed/embed.js".
+  calEmbedJsUrl: "",
   currency: "₹",
 };
 
@@ -30,7 +34,7 @@ export const socials = [
   { label: "Instagram", href: "#" },
 ];
 
-// Built-in scheduler shown until `site.bookingUrl` is set.
+// Built-in scheduler shown until `site.calLink` is set. Requests arrive by email.
 export const booking = {
   host: "Untitled Project",
   title: "Discovery call",

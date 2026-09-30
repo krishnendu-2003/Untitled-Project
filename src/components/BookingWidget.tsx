@@ -1,8 +1,10 @@
 "use client";
 
-import Script from "next/script";
+import Cal, { getCalApi } from "@calcom/embed-react";
 import { useEffect, useMemo, useState } from "react";
 import { booking, site } from "@/content/site";
+
+const CAL_NAMESPACE = "discovery-call";
 
 const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -24,13 +26,51 @@ function formatDate(d: Date) {
   return d.toLocaleDateString("en-IN", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
 }
 
-function CalendlyEmbed({ url }: { url: string }) {
-  const src = `${url}${url.includes("?") ? "&" : "?"}hide_gdpr_banner=1&background_color=ffffff&text_color=262626&primary_color=27ba57`;
+// Choices made elsewhere on the site (plan, service, stage, context link) travel
+// here as query params and become the booking notes, for Cal.com and the fallback alike.
+function useBookingNotes() {
+  const [notes, setNotes] = useState<string | null>(null);
+  useEffect(() => {
+    const q = new URLSearchParams(window.location.search);
+    const extra = q.get("extra");
+    const lines = [
+      q.get("plan") && `Plan: ${q.get("plan")}${extra ? ` + ${extra} extra revision round${extra === "1" ? "" : "s"}` : ""}`,
+      q.get("service") && `Service: ${q.get("service")}`,
+      q.get("stage") && `Stage: ${q.get("stage")}`,
+      q.get("context") && `Context file: ${q.get("context")}`,
+    ].filter(Boolean);
+    setNotes(lines.join("\n"));
+  }, []);
+  return notes;
+}
+
+function CalComEmbed({ calLink }: { calLink: string }) {
+  const notes = useBookingNotes();
+
+  useEffect(() => {
+    (async () => {
+      const cal = await getCalApi({ namespace: CAL_NAMESPACE, embedJsUrl: site.calEmbedJsUrl || undefined });
+      cal("ui", {
+        theme: "light",
+        layout: "month_view",
+        hideEventTypeDetails: false,
+        cssVarsPerTheme: { light: { "cal-brand": "#27ba57" }, dark: { "cal-brand": "#27ba57" } },
+      });
+    })();
+  }, []);
+
+  // Wait for the notes so Cal.com receives them in its first (and only) init.
+  if (notes === null) return <div className="h-[640px]" aria-busy="true" />;
+
   return (
-    <>
-      <Script src="https://assets.calendly.com/assets/external/widget.js" strategy="lazyOnload" />
-      <div className="calendly-inline-widget h-[700px] w-full min-w-[320px]" data-url={src} />
-    </>
+    <Cal
+      namespace={CAL_NAMESPACE}
+      calLink={calLink}
+      calOrigin={site.calOrigin || undefined}
+      embedJsUrl={site.calEmbedJsUrl || undefined}
+      config={{ layout: "month_view", theme: "light", ...(notes ? { notes } : {}) }}
+      className="min-h-[640px] w-full overflow-auto"
+    />
   );
 }
 
@@ -40,19 +80,10 @@ function Scheduler() {
   const [date, setDate] = useState<Date | null>(null);
   const [slot, setSlot] = useState<string | null>(null);
   const [step, setStep] = useState<"pick" | "details" | "done">("pick");
-  const [prefill, setPrefill] = useState("");
+  const prefill = useBookingNotes() ?? "";
 
   // Dates depend on the visitor's clock, so compute them after mount.
   useEffect(() => {
-    // Carry choices made elsewhere on the site (plan, service, stage) into the notes.
-    const q = new URLSearchParams(window.location.search);
-    const lines = [
-      q.get("plan") && `Plan: ${q.get("plan")}${q.get("extra") ? ` + ${q.get("extra")} extra revision round${q.get("extra") === "1" ? "" : "s"}` : ""}`,
-      q.get("service") && `Service: ${q.get("service")}`,
-      q.get("stage") && `Stage: ${q.get("stage")}`,
-      q.get("context") && `Context file: ${q.get("context")}`,
-    ].filter(Boolean);
-    setPrefill(lines.join("\n"));
     const now = startOfDay(new Date());
     // Open on the month of the first bookable day, so month-end visitors don't land on an empty month.
     let first = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
@@ -312,5 +343,5 @@ function Scheduler() {
 }
 
 export default function BookingWidget() {
-  return site.bookingUrl ? <CalendlyEmbed url={site.bookingUrl} /> : <Scheduler />;
+  return site.calLink ? <CalComEmbed calLink={site.calLink} /> : <Scheduler />;
 }
