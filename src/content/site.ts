@@ -28,7 +28,7 @@ export const booking = {
 export const nav = [
   { label: "Why us", href: "/#why" },
   { label: "Services", href: "/#services" },
-  { label: "Work", href: "/#work" },
+  { label: "Work", href: "/work" },
   { label: "Process", href: "/#process" },
   { label: "Pricing", href: "/#pricing" },
   { label: "FAQ", href: "/#faq" },

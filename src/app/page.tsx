@@ -1,40 +1,21 @@
 import BookingWidget from "@/components/BookingWidget";
-import { Button, Footer, Header } from "@/components/Chrome";
+import { Button, Footer, Header, SectionHeading, toneBg } from "@/components/Chrome";
 import {
   extraRevision,
   faqs,
   plans,
   process,
-  references,
   services,
   site,
-  type Reference,
   type Service,
   whyUs,
 } from "@/content/site";
-
-const toneBg: Record<Reference["tone"], string> = {
-  lavender: "bg-lavender",
-  sage: "bg-sage",
-  peach: "bg-peach",
-  ink: "bg-ink text-paper",
-};
 
 const toneDeep: Record<Service["tone"], string> = {
   lavender: "text-lavender-deep",
   sage: "text-sage-deep",
   peach: "text-peach-deep",
 };
-
-function SectionHeading({ kicker, title, body }: { kicker: string; title: React.ReactNode; body?: string }) {
-  return (
-    <div className="mx-auto max-w-2xl text-center">
-      <p className="text-xs font-medium uppercase tracking-[0.2em] text-ink-soft">{kicker}</p>
-      <h2 className="mt-4 font-serif text-4xl leading-[1.05] sm:text-6xl">{title}</h2>
-      {body && <p className="mt-5 text-lg text-ink-soft">{body}</p>}
-    </div>
-  );
-}
 
 function Hero() {
   const formats = ["Reels", "YouTube Shorts", "Brand films", "Founder stories", "Product launches", "AI ad variants", "Podcasts", "Explainers"];
@@ -164,43 +145,20 @@ function Services() {
   );
 }
 
-function Work() {
+function WorkTeaser() {
   return (
-    <section id="work" className="scroll-mt-24 bg-paper-2/60 py-24">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+    <section id="work" className="scroll-mt-24 bg-paper-2/60 py-20">
+      <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 px-4 text-center sm:px-6">
         <SectionHeading
           kicker="References"
           title={
             <>
-              Recent <em>work</em>
+              See the <em>work</em>
             </>
           }
-          body="A sample across agentic video, on-location shoots and production."
+          body="Agentic videos, on-location shoots and full productions, all in one place."
         />
-        <div className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {references.map((r) => (
-            <a
-              key={r.title}
-              href={r.href}
-              className="group overflow-hidden rounded-3xl border border-line bg-white/70 transition-transform hover:-translate-y-1"
-            >
-              <div className={`relative flex aspect-video items-center justify-center ${toneBg[r.tone]}`}>
-                <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white/80 text-ink shadow-sm transition-transform group-hover:scale-110">
-                  <svg viewBox="0 0 24 24" className="ml-0.5 h-5 w-5 fill-current" aria-hidden>
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                </span>
-                <span className="absolute left-4 top-4 rounded-full bg-white/80 px-3 py-1 text-xs font-medium text-ink">
-                  {r.category}
-                </span>
-              </div>
-              <div className="p-5">
-                <h3 className="font-serif text-2xl leading-tight">{r.title}</h3>
-                <p className="mt-1 text-sm text-ink-soft">{r.client}</p>
-              </div>
-            </a>
-          ))}
-        </div>
+        <Button href="/work">View recent work</Button>
       </div>
     </section>
   );
@@ -372,7 +330,7 @@ export default function Home() {
         <Hero />
         <WhyUs />
         <Services />
-        <Work />
+        <WorkTeaser />
         <Process />
         <Pricing />
         <Faq />
