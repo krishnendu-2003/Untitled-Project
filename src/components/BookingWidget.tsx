@@ -47,7 +47,7 @@ function Scheduler() {
     // Carry choices made elsewhere on the site (plan, service, stage) into the notes.
     const q = new URLSearchParams(window.location.search);
     const lines = [
-      q.get("plan") && `Plan: ${q.get("plan")}${q.get("extra") ? ` + ${q.get("extra")} extra revision rounds` : ""}`,
+      q.get("plan") && `Plan: ${q.get("plan")}${q.get("extra") ? ` + ${q.get("extra")} extra revision round${q.get("extra") === "1" ? "" : "s"}` : ""}`,
       q.get("service") && `Service: ${q.get("service")}`,
       q.get("stage") && `Stage: ${q.get("stage")}`,
       q.get("context") && `Context file: ${q.get("context")}`,
