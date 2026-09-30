@@ -7,7 +7,7 @@ export const site = {
   email: "hello@untitledproject.studio",
   // Cal.com booking. Paste your event's link path (the part after cal.com/) to swap the
   // built-in scheduler for live Cal.com booking. Example: "untitled-project/discovery-call"
-  calLink: "",
+  calLink: "triple-c/untitled-project",
   // Only for a self-hosted Cal.com: its origin, e.g. "https://cal.yourdomain.com".
   calOrigin: "",
   // Only for a self-hosted Cal.com: its embed script, e.g. "https://cal.yourdomain.com/embed/embed.js".
