@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+/* Design tokens: warm paper background, near-black ink, soft pastel accents,
+   editorial serif headlines over a clean sans. Change the palette here. */
+:root {
+  --paper: #f7f4ec;
+  --paper-2: #efeadf;
+  --ink: #1b1a17;
+  --ink-soft: #55524a;
+  --line: #ddd7c8;
+  --lavender: #d9cff7;
+  --lavender-deep: #5b45b8;
+  --sage: #d5e5cf;
+  --sage-deep: #2f5d3a;
+  --peach: #f7d7c2;
+  --peach-deep: #9a4a22;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-line: var(--line);
+  --color-lavender: var(--lavender);
+  --color-lavender-deep: var(--lavender-deep);
+  --color-sage: var(--sage);
+  --color-sage-deep: var(--sage-deep);
+  --color-peach: var(--peach);
+  --color-peach-deep: var(--peach-deep);
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-instrument-serif);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-inter), system-ui, sans-serif;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.marquee {
+  animation: marquee 40s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .marquee { animation: none; }
+}
+
+details > summary { list-style: none; }
+details > summary::-webkit-details-marker { display: none; }
+details[open] .faq-icon { transform: rotate(45deg); }
