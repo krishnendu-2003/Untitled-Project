@@ -3,7 +3,7 @@
 
 export const site = {
   name: "Untitled Project",
-  tagline: "A content creation agency for brands that would rather be seen than scrolled past.",
+  tagline: "Send the docs and context files your team already has. We turn them into finished videos.",
   email: "hello@untitledproject.studio",
   // Paste your Calendly / Cal.com scheduling link here to turn on the embedded booking widget.
   // Example: "https://calendly.com/untitled-project/intro-call"
@@ -12,12 +12,34 @@ export const site = {
 };
 
 export const nav = [
+  { label: "Why us", href: "#why" },
   { label: "Services", href: "#services" },
   { label: "Work", href: "#work" },
   { label: "Process", href: "#process" },
   { label: "Pricing", href: "#pricing" },
   { label: "FAQ", href: "#faq" },
 ];
+
+// The core pitch: you own the context, we own the production.
+export const whyUs = {
+  yourself: [
+    "Your team learns video tools and prompting",
+    "Your tokens burn on retries and failed generations",
+    "Your hours go into editing, fixing and re-rendering",
+    "Your roadmap slows while people babysit video",
+  ],
+  withUs: [
+    "You hand over the context file you already have",
+    "We carry the token cost and the retries",
+    "We do the manual work: scripting, editing, fixing",
+    "You get a finished video to approve",
+  ],
+  points: [
+    { title: "Save tokens", body: "Generating video yourself means paying for every draft and dead end. With us, that cost is ours." },
+    { title: "Save time", body: "No prompt engineering, no tool learning curve. Your team keeps building the product." },
+    { title: "Skip the labor", body: "Scripts, edits, re-renders and fixes happen on our side. You review the result." },
+  ],
+};
 
 export type Service = {
   id: string;
@@ -33,7 +55,7 @@ export const services: Service[] = [
     id: "agentic",
     kicker: "01 · AI-native",
     title: "Agentic video creation",
-    body: "AI agents script, storyboard, generate and cut short-form video at a pace no crew can match, with a human editor signing off every frame.",
+    body: "Send us your project docs and context files. Our agents turn them into finished videos, and a human editor signs off every frame. You never write a prompt.",
     points: [
       "Script and hook variations generated per platform",
       "AI avatars, voiceovers and b-roll on demand",
@@ -90,7 +112,7 @@ export const references: Reference[] = [
 ];
 
 export const process = [
-  { step: "01", title: "Book a call", body: "Tell us what you are making, who it is for and where it will live." },
+  { step: "01", title: "Hand over context", body: "Book a call and share your project docs, context files or brief. That is all we need." },
   { step: "02", title: "Plan", body: "We send a treatment, script direction and a fixed quote with your revision allowance." },
   { step: "03", title: "Create", body: "Agents, crew or both get to work. You see a first cut, not a status update." },
   { step: "04", title: "Revise and ship", body: "Use your revision rounds, approve, and get every export you need." },
