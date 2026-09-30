@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+/* Design tokens sampled from the reference: warm cream and sand grounds, white
+   panels, near-black ink, one vivid green for every primary action. */
+:root {
+  --cream: #f9f0e4;
+  --sand: #f3e1c6;
+  --paper: #ffffff;
+  --ink: #262626;
+  --ink-soft: #6f6a63;
+  --line: #eadfce;
+  --green: #27ba57;
+  --green-deep: #1f9a47;
+  --green-soft: #dcf3e3;
+}
+
+@theme inline {
+  --color-cream: var(--cream);
+  --color-sand: var(--sand);
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-line: var(--line);
+  --color-green: var(--green);
+  --color-green-deep: var(--green-deep);
+  --color-green-soft: var(--green-soft);
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-bricolage);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-inter), system-ui, sans-serif;
+}
+
+/* Small uppercase UI label used across nav, buttons and links. */
+.label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+@keyframes stat-in {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.stat-in {
+  animation: stat-in 0.5s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .stat-in { animation: none; }
+}
+
+details > summary { list-style: none; }
+details > summary::-webkit-details-marker { display: none; }
+details[open] .faq-icon { transform: rotate(45deg); }
