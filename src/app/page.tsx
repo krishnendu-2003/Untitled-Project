@@ -1,3 +1,4 @@
+import BookingWidget from "@/components/BookingWidget";
 import {
   extraRevision,
   faqs,
@@ -387,43 +388,26 @@ function Faq() {
 function BookCall() {
   return (
     <section id="book" className="scroll-mt-24 px-4 pb-24 sm:px-6">
-      <div className="relative mx-auto max-w-6xl overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-lavender via-paper-2 to-sage p-6 sm:p-12">
-        <div className="grid gap-10 lg:grid-cols-[1fr_1.2fr] lg:items-center">
-          <div>
-            <p className="text-xs font-medium uppercase tracking-[0.2em] text-ink-soft">Book a call</p>
-            <h2 className="mt-4 font-serif text-4xl leading-[1.05] sm:text-6xl">
-              Let&apos;s make something <em>worth watching</em>
-            </h2>
-            <p className="mt-5 text-lg text-ink-soft">
-              A free 30 minute call. Bring the idea, we bring the plan, a recommended package and a fixed quote.
-            </p>
-            <p className="mt-6 text-sm text-ink-soft">
-              Prefer email?{" "}
-              <a href={`mailto:${site.email}`} className="font-medium text-ink underline underline-offset-4">
-                {site.email}
-              </a>
-            </p>
-          </div>
-          <div className="overflow-hidden rounded-3xl border border-ink/10 bg-white/80">
-            {site.bookingUrl ? (
-              <iframe
-                src={site.bookingUrl}
-                title="Book a call with Untitled Project"
-                className="h-[640px] w-full"
-                loading="lazy"
-              />
-            ) : (
-              <div className="flex h-[420px] flex-col items-center justify-center gap-4 p-8 text-center">
-                <span className="font-serif text-5xl italic text-lavender-deep">Calendar</span>
-                <p className="max-w-sm text-sm text-ink-soft">
-                  Booking calendar goes here. Add your Calendly or Cal.com link as <code>bookingUrl</code> in{" "}
-                  <code>src/content/site.ts</code> to embed it.
-                </p>
-                <Button href={`mailto:${site.email}?subject=Book%20a%20call`}>Email to book</Button>
-              </div>
-            )}
-          </div>
+      <div className="relative mx-auto max-w-6xl overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-lavender via-paper-2 to-sage p-4 sm:p-12">
+        <div className="mx-auto max-w-2xl px-2 text-center">
+          <p className="text-xs font-medium uppercase tracking-[0.2em] text-ink-soft">Book a call</p>
+          <h2 className="mt-4 font-serif text-4xl leading-[1.05] sm:text-6xl">
+            Let&apos;s make something <em>worth watching</em>
+          </h2>
+          <p className="mt-5 text-lg text-ink-soft">
+            Pick a time that works for you. Bring the idea, we bring the plan, a recommended package and a fixed
+            quote.
+          </p>
         </div>
+        <div className="mt-10 overflow-hidden rounded-3xl border border-ink/10 bg-white shadow-sm">
+          <BookingWidget />
+        </div>
+        <p className="mt-6 text-center text-sm text-ink-soft">
+          Prefer email?{" "}
+          <a href={`mailto:${site.email}`} className="font-medium text-ink underline underline-offset-4">
+            {site.email}
+          </a>
+        </p>
       </div>
     </section>
   );
