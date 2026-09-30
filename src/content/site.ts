@@ -5,10 +5,24 @@ export const site = {
   name: "Untitled Project",
   tagline: "Send the docs and context files your team already has. We turn them into finished videos.",
   email: "hello@untitledproject.studio",
-  // Paste your Calendly / Cal.com scheduling link here to turn on the embedded booking widget.
-  // Example: "https://calendly.com/untitled-project/intro-call"
+  // Paste your Calendly event link here to swap the built-in scheduler for your live Calendly.
+  // Example: "https://calendly.com/untitled-project/discovery-call"
   bookingUrl: "",
   currency: "₹",
+};
+
+// Built-in scheduler shown until `site.bookingUrl` is set.
+export const booking = {
+  host: "Untitled Project",
+  title: "Discovery call",
+  durationMinutes: 30,
+  location: "Google Meet link sent after booking",
+  description: "Walk us through the project and share any context files. We will recommend a plan and send a fixed quote.",
+  timezone: "India Standard Time (IST)",
+  daysAhead: 30,
+  // 0 = Sunday ... 6 = Saturday
+  workDays: [1, 2, 3, 4, 5],
+  slots: ["10:00", "10:30", "11:00", "11:30", "12:00", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00"],
 };
 
 export const nav = [
