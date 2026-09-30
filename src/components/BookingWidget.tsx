@@ -25,7 +25,7 @@ function formatDate(d: Date) {
 }
 
 function CalendlyEmbed({ url }: { url: string }) {
-  const src = `${url}${url.includes("?") ? "&" : "?"}hide_gdpr_banner=1&background_color=ffffff&text_color=1b1a17&primary_color=5b45b8`;
+  const src = `${url}${url.includes("?") ? "&" : "?"}hide_gdpr_banner=1&background_color=ffffff&text_color=262626&primary_color=27ba57`;
   return (
     <>
       <Script src="https://assets.calendly.com/assets/external/widget.js" strategy="lazyOnload" />
@@ -40,9 +40,19 @@ function Scheduler() {
   const [date, setDate] = useState<Date | null>(null);
   const [slot, setSlot] = useState<string | null>(null);
   const [step, setStep] = useState<"pick" | "details" | "done">("pick");
+  const [prefill, setPrefill] = useState("");
 
   // Dates depend on the visitor's clock, so compute them after mount.
   useEffect(() => {
+    // Carry choices made elsewhere on the site (plan, service, stage) into the notes.
+    const q = new URLSearchParams(window.location.search);
+    const lines = [
+      q.get("plan") && `Plan: ${q.get("plan")}${q.get("extra") ? ` + ${q.get("extra")} extra revision rounds` : ""}`,
+      q.get("service") && `Service: ${q.get("service")}`,
+      q.get("stage") && `Stage: ${q.get("stage")}`,
+      q.get("context") && `Context file: ${q.get("context")}`,
+    ].filter(Boolean);
+    setPrefill(lines.join("\n"));
     const now = startOfDay(new Date());
     // Open on the month of the first bookable day, so month-end visitors don't land on an empty month.
     let first = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
@@ -95,7 +105,7 @@ function Scheduler() {
   const summary = (
     <div className="space-y-3 text-sm text-ink-soft">
       <p className="text-xs font-medium uppercase tracking-[0.2em]">{booking.host}</p>
-      <h3 className="font-serif text-3xl leading-tight text-ink">{booking.title}</h3>
+      <h3 className="font-display text-2xl font-bold leading-tight tracking-tight text-ink">{booking.title}</h3>
       <p className="flex items-center gap-2">
         <span aria-hidden>◷</span> {booking.durationMinutes} min
       </p>
@@ -103,7 +113,7 @@ function Scheduler() {
         <span aria-hidden>▶</span> {booking.location}
       </p>
       {date && slot && (
-        <p className="flex items-start gap-2 font-medium text-lavender-deep">
+        <p className="flex items-start gap-2 font-medium text-green-deep">
           <span aria-hidden>▣</span>
           <span>
             {formatSlot(slot)}, {formatDate(date)}
@@ -120,10 +130,10 @@ function Scheduler() {
   if (step === "done" && date && slot) {
     return (
       <div className="flex min-h-[520px] flex-col items-center justify-center gap-4 p-8 text-center">
-        <span className="flex h-14 w-14 items-center justify-center rounded-full bg-lavender text-2xl text-lavender-deep">
+        <span className="flex h-14 w-14 items-center justify-center rounded-full bg-green-soft text-2xl text-green-deep">
           ✓
         </span>
-        <h3 className="font-serif text-3xl">Almost booked</h3>
+        <h3 className="font-display text-3xl font-extrabold tracking-tight">Almost booked</h3>
         <p className="max-w-sm text-sm text-ink-soft">
           Your email app should have opened with the request for{" "}
           <strong className="text-ink">
@@ -159,7 +169,7 @@ function Scheduler() {
           >
             ← Back
           </button>
-          <h4 className="font-serif text-2xl">Enter details</h4>
+          <h4 className="font-display text-xl font-bold tracking-tight">Enter details</h4>
           {[
             { id: "name", label: "Name", type: "text", required: true },
             { id: "email", label: "Email", type: "email", required: true },
@@ -173,7 +183,7 @@ function Scheduler() {
                 name={f.id}
                 type={f.type}
                 required={f.required}
-                className="mt-1.5 w-full rounded-xl border border-line bg-white px-4 py-2.5 font-normal outline-none focus:border-lavender-deep focus:ring-2 focus:ring-lavender"
+                className="mt-1.5 w-full rounded-xl border border-ink/15 bg-white px-4 py-2.5 font-normal outline-none focus:border-green focus:ring-2 focus:ring-green-soft"
               />
             </label>
           ))}
@@ -181,14 +191,15 @@ function Scheduler() {
             What should the video do? Links to context files welcome.
             <textarea
               id="booking-notes"
+              defaultValue={prefill}
               name="notes"
               rows={3}
-              className="mt-1.5 w-full rounded-xl border border-line bg-white px-4 py-2.5 font-normal outline-none focus:border-lavender-deep focus:ring-2 focus:ring-lavender"
+              className="mt-1.5 w-full rounded-xl border border-ink/15 bg-white px-4 py-2.5 font-normal outline-none focus:border-green focus:ring-2 focus:ring-green-soft"
             />
           </label>
           <button
             type="submit"
-            className="w-full rounded-full bg-ink px-6 py-3 text-sm font-medium text-paper hover:bg-ink/85"
+            className="w-full rounded-full bg-green px-6 py-3 text-sm font-semibold text-white hover:bg-green-deep"
           >
             Schedule call
           </button>
@@ -196,14 +207,14 @@ function Scheduler() {
       ) : (
         <div className="grid gap-6 p-6 lg:grid-cols-[minmax(0,1fr)_10rem]">
           <div>
-            <h4 className="font-serif text-2xl">Select a date and time</h4>
+            <h4 className="font-display text-xl font-bold tracking-tight">Select a date and time</h4>
             <div className="mt-4 flex items-center justify-between">
               <button
                 type="button"
                 aria-label="Previous month"
                 disabled={!canGoBack}
                 onClick={() => setMonth(new Date(month.getFullYear(), month.getMonth() - 1, 1))}
-                className="h-9 w-9 rounded-full text-lg hover:bg-lavender disabled:opacity-30 disabled:hover:bg-transparent"
+                className="h-9 w-9 rounded-full text-lg hover:bg-green-soft disabled:opacity-30 disabled:hover:bg-transparent"
               >
                 ‹
               </button>
@@ -215,7 +226,7 @@ function Scheduler() {
                 aria-label="Next month"
                 disabled={!canGoForward}
                 onClick={() => setMonth(new Date(month.getFullYear(), month.getMonth() + 1, 1))}
-                className="h-9 w-9 rounded-full text-lg hover:bg-lavender disabled:opacity-30 disabled:hover:bg-transparent"
+                className="h-9 w-9 rounded-full text-lg hover:bg-green-soft disabled:opacity-30 disabled:hover:bg-transparent"
               >
                 ›
               </button>
@@ -243,9 +254,9 @@ function Scheduler() {
                     }}
                     className={`mx-auto flex aspect-square w-full max-w-11 items-center justify-center rounded-full text-sm transition-colors ${
                       selected
-                        ? "bg-lavender-deep font-semibold text-white"
+                        ? "bg-green font-semibold text-white"
                         : available
-                          ? "bg-lavender/60 font-semibold text-lavender-deep hover:bg-lavender"
+                          ? "bg-green-soft font-semibold text-green-deep hover:bg-green/25"
                           : "text-ink-soft/40"
                     } ${sameDay(d, today) && !selected ? "underline underline-offset-4" : ""}`}
                   >
@@ -266,13 +277,13 @@ function Scheduler() {
                   {booking.slots.map((s) =>
                     slot === s ? (
                       <div key={s} className="grid grid-cols-2 gap-1.5">
-                        <span className="rounded-lg bg-ink/70 py-2.5 text-center text-sm font-medium text-paper">
+                        <span className="rounded-lg bg-ink/75 py-2.5 text-center text-sm font-medium text-white">
                           {formatSlot(s)}
                         </span>
                         <button
                           type="button"
                           onClick={() => setStep("details")}
-                          className="rounded-lg bg-lavender-deep py-2.5 text-sm font-medium text-white"
+                          className="rounded-lg bg-green py-2.5 text-sm font-medium text-white"
                         >
                           Next
                         </button>
@@ -282,7 +293,7 @@ function Scheduler() {
                         key={s}
                         type="button"
                         onClick={() => setSlot(s)}
-                        className="rounded-lg border border-lavender-deep/40 py-2.5 text-sm font-semibold text-lavender-deep hover:border-lavender-deep"
+                        className="rounded-lg border border-green/40 py-2.5 text-sm font-semibold text-green-deep hover:border-green"
                       >
                         {formatSlot(s)}
                       </button>

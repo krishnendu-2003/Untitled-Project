@@ -1,35 +1,31 @@
 @import "tailwindcss";
 
-/* Design tokens: warm paper background, near-black ink, soft pastel accents,
-   editorial serif headlines over a clean sans. Change the palette here. */
+/* Design tokens sampled from the reference: warm cream and sand grounds, white
+   panels, near-black ink, one vivid green for every primary action. */
 :root {
-  --paper: #f7f4ec;
-  --paper-2: #efeadf;
-  --ink: #1b1a17;
-  --ink-soft: #55524a;
-  --line: #ddd7c8;
-  --lavender: #d9cff7;
-  --lavender-deep: #5b45b8;
-  --sage: #d5e5cf;
-  --sage-deep: #2f5d3a;
-  --peach: #f7d7c2;
-  --peach-deep: #9a4a22;
+  --cream: #f9f0e4;
+  --sand: #f3e1c6;
+  --paper: #ffffff;
+  --ink: #262626;
+  --ink-soft: #6f6a63;
+  --line: #eadfce;
+  --green: #27ba57;
+  --green-deep: #1f9a47;
+  --green-soft: #dcf3e3;
 }
 
 @theme inline {
+  --color-cream: var(--cream);
+  --color-sand: var(--sand);
   --color-paper: var(--paper);
-  --color-paper-2: var(--paper-2);
   --color-ink: var(--ink);
   --color-ink-soft: var(--ink-soft);
   --color-line: var(--line);
-  --color-lavender: var(--lavender);
-  --color-lavender-deep: var(--lavender-deep);
-  --color-sage: var(--sage);
-  --color-sage-deep: var(--sage-deep);
-  --color-peach: var(--peach);
-  --color-peach-deep: var(--peach-deep);
+  --color-green: var(--green);
+  --color-green-deep: var(--green-deep);
+  --color-green-soft: var(--green-soft);
   --font-sans: var(--font-inter);
-  --font-serif: var(--font-instrument-serif);
+  --font-display: var(--font-bricolage);
 }
 
 html {
@@ -37,23 +33,31 @@ html {
 }
 
 body {
-  background: var(--paper);
+  background: var(--cream);
   color: var(--ink);
   font-family: var(--font-inter), system-ui, sans-serif;
 }
 
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+/* Small uppercase UI label used across nav, buttons and links. */
+.label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
-.marquee {
-  animation: marquee 40s linear infinite;
+@keyframes stat-in {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.stat-in {
+  animation: stat-in 0.5s ease-out both;
 }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .marquee { animation: none; }
+  .stat-in { animation: none; }
 }
 
 details > summary { list-style: none; }

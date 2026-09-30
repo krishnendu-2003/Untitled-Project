@@ -11,6 +11,25 @@ export const site = {
   currency: "₹",
 };
 
+// Platforms shown in the strip under the hero.
+export const platforms = ["YouTube", "Instagram", "LinkedIn", "TikTok"];
+
+// Rotating counter in the Why us section. Each line is a promise, not a statistic.
+export const stats = [
+  { value: "0", label: "Prompts you write" },
+  { value: "0", label: "Tokens you burn" },
+  { value: "0", label: "Hours you spend editing" },
+  { value: "1", label: "Context file is all we need" },
+];
+
+// Footer social links. Replace "#" with your profiles.
+export const socials = [
+  { label: "X", href: "#" },
+  { label: "YouTube", href: "#" },
+  { label: "LinkedIn", href: "#" },
+  { label: "Instagram", href: "#" },
+];
+
 // Built-in scheduler shown until `site.bookingUrl` is set.
 export const booking = {
   host: "Untitled Project",
@@ -61,7 +80,7 @@ export type Service = {
   title: string;
   body: string;
   points: string[];
-  tone: "lavender" | "sage" | "peach";
+  tags: string[];
 };
 
 export const services: Service[] = [
@@ -76,7 +95,7 @@ export const services: Service[] = [
       "Batch output for Reels, Shorts and ads",
       "Human QA and brand-safety review on every cut",
     ],
-    tone: "lavender",
+    tags: ["Reels", "Ads", "AI avatars"],
   },
   {
     id: "shoot",
@@ -89,7 +108,7 @@ export const services: Service[] = [
       "Founder and talking-head interviews",
       "Product, event and behind-the-scenes coverage",
     ],
-    tone: "sage",
+    tags: ["Founders", "Products", "Events"],
   },
   {
     id: "production",
@@ -102,7 +121,7 @@ export const services: Service[] = [
       "Cut-downs for every platform and aspect ratio",
       "Brand films, launches and explainers",
     ],
-    tone: "peach",
+    tags: ["Editing", "Grade", "Captions"],
   },
 ];
 
@@ -112,17 +131,17 @@ export type Reference = {
   client: string;
   // Replace with a YouTube / Vimeo / Instagram link or a path under /public.
   href: string;
-  tone: "lavender" | "sage" | "peach" | "ink";
+  tone: "green" | "sand" | "ink" | "cream";
 };
 
 // Placeholder references. Swap in real projects, links and thumbnails.
 export const references: Reference[] = [
-  { category: "Agentic video", title: "30 ad variants in 48 hours", client: "Client name", href: "#", tone: "lavender" },
-  { category: "In-person shoot", title: "Founder story, shot on location", client: "Client name", href: "#", tone: "sage" },
-  { category: "Production", title: "Product launch film", client: "Client name", href: "#", tone: "peach" },
+  { category: "Agentic video", title: "30 ad variants in 48 hours", client: "Client name", href: "#", tone: "green" },
+  { category: "In-person shoot", title: "Founder story, shot on location", client: "Client name", href: "#", tone: "sand" },
+  { category: "Production", title: "Product launch film", client: "Client name", href: "#", tone: "cream" },
   { category: "Agentic video", title: "AI avatar explainer series", client: "Client name", href: "#", tone: "ink" },
-  { category: "In-person shoot", title: "Team culture day", client: "Client name", href: "#", tone: "peach" },
-  { category: "Production", title: "Podcast to Shorts pipeline", client: "Client name", href: "#", tone: "lavender" },
+  { category: "In-person shoot", title: "Team culture day", client: "Client name", href: "#", tone: "cream" },
+  { category: "Production", title: "Podcast to Shorts pipeline", client: "Client name", href: "#", tone: "green" },
 ];
 
 export const process = [

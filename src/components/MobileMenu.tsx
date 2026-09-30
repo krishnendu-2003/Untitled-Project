@@ -25,7 +25,7 @@ export default function MobileMenu() {
   }, [open]);
 
   return (
-    <div className="md:hidden">
+    <div className="lg:hidden">
       <button
         type="button"
         aria-label={open ? "Close menu" : "Open menu"}
@@ -48,7 +48,7 @@ export default function MobileMenu() {
         createPortal(
           <div
             id="mobile-menu"
-            className="fixed inset-x-0 bottom-0 top-[77px] z-50 md:hidden flex flex-col overflow-y-auto border-t border-line bg-paper px-4 pb-10 pt-4"
+            className="fixed inset-x-0 bottom-0 top-[76px] z-50 lg:hidden flex flex-col overflow-y-auto border-t border-line bg-cream px-4 pb-10 pt-4"
           >
             <nav aria-label="Mobile" className="flex flex-col divide-y divide-line">
               {nav.map((item) => {
@@ -59,8 +59,8 @@ export default function MobileMenu() {
                     href={item.href}
                     onClick={() => setOpen(false)}
                     aria-current={active ? "page" : undefined}
-                    className={`flex items-center justify-between py-4 font-serif text-3xl ${
-                      active ? "text-lavender-deep" : "text-ink"
+                    className={`flex items-center justify-between py-4 font-display text-3xl font-extrabold tracking-tight ${
+                      active ? "text-green-deep" : "text-ink"
                     }`}
                   >
                     {item.label}
@@ -74,7 +74,7 @@ export default function MobileMenu() {
             <Link
               href="/book"
               onClick={() => setOpen(false)}
-              className="mt-8 inline-flex items-center justify-center rounded-full bg-ink px-6 py-4 text-base font-medium text-paper"
+              className="mt-8 inline-flex items-center justify-center rounded-full bg-green px-6 py-4 text-base font-semibold text-white"
             >
               Book a call
             </Link>

@@ -12,7 +12,7 @@ export function isPage(href: string) {
 export default function NavLinks() {
   const pathname = usePathname();
   return (
-    <nav aria-label="Main" className="hidden items-center gap-7 text-sm text-ink-soft md:flex">
+    <nav aria-label="Main" className="hidden items-center gap-6 text-ink lg:flex">
       {nav.map((item) => {
         const active = pathname === item.href;
         return isPage(item.href) ? (
@@ -20,14 +20,14 @@ export default function NavLinks() {
             key={item.href}
             href={item.href}
             aria-current={active ? "page" : undefined}
-            className={`rounded-full border px-4 py-1.5 font-medium transition-colors ${
-              active ? "border-ink bg-ink text-paper" : "border-ink/20 text-ink hover:border-ink"
+            className={`label rounded-full px-4 py-2 transition-colors ${
+              active ? "bg-green text-white" : "bg-green-soft text-green-deep hover:bg-green hover:text-white"
             }`}
           >
             {item.label}
           </Link>
         ) : (
-          <Link key={item.href} href={item.href} className="hover:text-ink">
+          <Link key={item.href} href={item.href} className="label hover:text-green-deep">
             {item.label}
           </Link>
         );
